@@ -64,6 +64,7 @@ public class ExtractingEmployeeDTO
             FirstName = model.FirstName,
             LastName = model.LastName,
             Email = model.Email.Trim(),
+            Password = model.Password,
             EmployeeProjects = new List<EmployeeProject>(),
         };
 

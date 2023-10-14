@@ -46,7 +46,7 @@ public class ProjectController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogInformation("Getting all projects. Error {Message}", ex.Message);
+            _logger.LogError("Getting all projects. Error {Message}", ex.Message);
             return BadRequest(ex.Message);
         }
     }
@@ -63,12 +63,13 @@ public class ProjectController : Controller
         try
         {
             await _project.CreateProjectAsync(model);
-            return RedirectToPage("/project/index");
+            return View();
         }
         catch (Exception ex)
         {
             ViewData["Error"] = ex.Message;
-            return View();
+            _logger.LogError("Adding project. Error {Message}", ex.Message);
+            return BadRequest(ex.Message);
         }
     }
 
@@ -94,7 +95,7 @@ public class ProjectController : Controller
         {
             model.Id = id;
             await _project.EditProjectAsync(model);
-            return RedirectToRoute("/");
+            return View();
         }
         catch (Exception ex)
         {
@@ -123,7 +124,7 @@ public class ProjectController : Controller
         try
         {
             await _project.DeleteProjectAsync(id);
-            return RedirectToAction(nameof(Index));
+            return View();
         }
         catch (Exception ex)
         {

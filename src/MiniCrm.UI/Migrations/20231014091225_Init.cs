@@ -20,7 +20,6 @@ namespace MiniCrm.UI.Migrations
                     LastName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     UpdateDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>

@@ -47,10 +47,6 @@ namespace MiniCrm.UI.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<byte[]>("Salt")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<DateTimeOffset?>("UpdateDateTime")
                         .HasColumnType("datetimeoffset");
 

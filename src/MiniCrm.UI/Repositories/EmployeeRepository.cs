@@ -70,8 +70,7 @@ public class EmployeeRepository : IEmployeeRepository
         try
         {
             var employee = ExtractingEmployeeDTO.ExtractingFromBindingModel(model);
-
-            _context.Employees.Add(ExtractingEmployeeDTO.ExtractingFromBindingModel(model));
+            _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
         }
         catch (Exception ex)

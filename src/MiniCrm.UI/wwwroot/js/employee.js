@@ -1,26 +1,22 @@
 ﻿$(document).ready(function () {
-    const employeesSelectElement = $("#projectEmployees");
+    const projectSelectElement = $("#projectsSelect");
     const errorBlock = $("#errorBlock");
     const errorText = $(".error-text");
-    const managersSelectElement = $("#projectManagers");
-    const projectRow = $("#projectRow");
-    const projectLoader = $("#projectLoader");
+    const projectRow = $("#employeeRow");
+    const projectLoader = $("#employeeLoader");
 
-    if (employeesSelectElement.length !== 0) {
+    if (projectSelectElement.length !== 0) {
         projectLoader.show();
         projectRow.hide();
 
         $.ajax({
             type: "GET",
-            url: "/project/getEmployees",
+            url: "/employee/getProjects",
             dataType: "json",
             success: function (response) {
                 $.each(response, function (index, item) {
-                    employeesSelectElement.append(new Option(item.label, item.value));
-                });
-
-                $.each(response, function (index, item) {
-                    managersSelectElement.append(new Option(item.label, item.value));
+                    projectSelectElement.append(new Option(item.label, item.value));
+                    console.log(item);
                 });
 
                 projectLoader.hide();
@@ -38,30 +34,31 @@
         });
     }
 
-    const formAdd = $(".project-action");
+    const formAdd = $(".employee-action");
 
     formAdd.submit(function (e) {
         e.preventDefault();
 
+        const url = window.location.pathname;
+        const id = url.substring(url.lastIndexOf("/") + 1);
+
         if (formAdd.valid()) {
             $.ajax({
                 type: "POST",
-                url: "/project/create",
+                url: "/employee/create",
                 data: formAdd.serialize(),
-                success: function (response) {
-                    window.location.replace("/project");
+                success: function (e) {
+                    window.location.replace("/Employee");
                 },
                 error: function (xhr, status, error) {
                     errorBlock.show();
                     errorText.text(error);
-
-                    console.log(`Error: ${error}, Status: ${status}`);
                 }
             });
         }
     });
 
-    const formEdit = $(".project-edit");
+    const formEdit = $(".employee-edit");
 
     formEdit.submit(function (e) {
         e.preventDefault();
@@ -72,10 +69,10 @@
         if (formEdit.valid()) {
             $.ajax({
                 type: "PUT",
-                url: "/project/edit/" + id,
+                url: "/employee/edit/" + id,
                 data: formEdit.serialize(),
                 success: function (e) {
-                    window.location.replace("/project");
+                    window.location.replace("/employee");
                 },
                 error: function (xhr, status, error) {
                     errorBlock.show();
@@ -85,17 +82,17 @@
         }
     });
 
-    const deleteProjectButton = $("#deleteProject");
+    const deleteEmployeeButton = $("#deleteEmployee");
 
-    deleteProjectButton.click(function (e) {
+    deleteEmployeeButton.click(function (e) {
         const url = window.location.pathname;
         const id = url.substring(url.lastIndexOf("/") + 1);
 
         $.ajax({
             type: "DELETE",
-            url: "/project/delete/" + id,
+            url: "/employee/delete/" + id,
             success: function (response) {
-                window.location.replace("/");
+                window.location.replace("/employee");
             },
             error: function (xhr, status, error) {
                 errorBlock.show();

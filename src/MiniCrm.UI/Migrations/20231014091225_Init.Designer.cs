@@ -12,7 +12,7 @@ using MiniCrm.UI.Services;
 namespace MiniCrm.UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231014080112_Init")]
+    [Migration("20231014091225_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -49,10 +49,6 @@ namespace MiniCrm.UI.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<byte[]>("Salt")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<DateTimeOffset?>("UpdateDateTime")
                         .HasColumnType("datetimeoffset");

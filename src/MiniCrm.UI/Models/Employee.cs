@@ -24,8 +24,6 @@ public class Employee : Entity<Guid>
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
-    public byte[] Salt { get; set; } = null!;
-
     public List<Manager> Managers { get; set; } = null!;
 
     public List<EmployeeProject> EmployeeProjects { get; set; } = null!;
