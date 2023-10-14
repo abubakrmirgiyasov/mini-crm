@@ -4,18 +4,16 @@ using MiniCrm.UI.Models;
 using MiniCrm.UI.Repositories.Interfaces;
 
 namespace MiniCrm.UI.Controllers;
+
 public class EmployeeController : Controller
 {
     private readonly ILogger<EmployeeController> _logger;
     private readonly IEmployeeRepository _employee;
-    private readonly IProjectRepository _project;
 
     public EmployeeController(
-        IProjectRepository project,
         IEmployeeRepository employee,
         ILogger<EmployeeController> logger)
     {
-        _project = project;
         _employee = employee;
         _logger = logger;
     }
@@ -106,15 +104,16 @@ public class EmployeeController : Controller
         }
     }
 
-    public async Task<ActionResult> GetProjects()
+    public async Task<ActionResult> GetSampleEmployees()
     {
         try
         {
-            var projects = await _project.GetSampleProjectsAsync();
-            return Json(projects);
+            var employees = await _employee.GetSampleEmployeesAsync();
+            return Json(employees);
         }
         catch (Exception ex)
         {
+            ViewData["Error"] = ex.Message;
             return BadRequest(ex.Message);
         }
     }

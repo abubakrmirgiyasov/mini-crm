@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
+    const managersSelectElement = $("#projectManagers");
     const employeesSelectElement = $("#projectEmployees");
+    const projectTasks = $("#projectTasks");
     const errorBlock = $("#errorBlock");
     const errorText = $(".error-text");
-    const managersSelectElement = $("#projectManagers");
     const projectRow = $("#projectRow");
     const projectLoader = $("#projectLoader");
 
@@ -10,31 +11,39 @@
         projectLoader.show();
         projectRow.hide();
 
-        $.ajax({
+        const employees = $.ajax({
             type: "GET",
-            url: "/project/getEmployees",
+            url: "/employee/getSampleEmployees",
             dataType: "json",
-            success: function (response) {
-                $.each(response, function (index, item) {
-                    employeesSelectElement.append(new Option(item.label, item.value));
-                });
+        });
 
-                $.each(response, function (index, item) {
-                    managersSelectElement.append(new Option(item.label, item.value));
-                });
+        const tasks = $.ajax({
+            type: "GET",
+            url: "/task/getSampleTasks",
+            dataType: "json",
+        });
 
-                projectLoader.hide();
-                projectRow.show();
-            },
-            error: function (xhr, status, error) {
-                projectLoader.hide();
-                projectRow.show();
+        $.when(tasks, employees).done(function (data1, data2) {
+            $.each(data2[0], function (index, item) {
+                employeesSelectElement.append(new Option(item.label, item.value));
+            });
 
-                errorBlock.show();
-                errorText.text(error);
+            $.each(data2[0], function (index, item) {
+                managersSelectElement.append(new Option(item.label, item.value));
+            });
 
-                console.log(`Error: ${error}, Status: ${status}`);
-            }
+            $.each(data1[0], function (index, item) {
+                projectTasks.append(new Option(item.label, item.value));
+            });
+
+            projectLoader.hide();
+            projectRow.show();
+        }).fail(function (xhr, status, error) {
+            errorBlock.show();
+            errorText.text(error);
+
+            projectLoader.hide();
+            projectRow.show();
         });
     }
 
@@ -49,7 +58,7 @@
                 url: "/project/create",
                 data: formAdd.serialize(),
                 success: function (response) {
-                    window.location.replace("/project");
+                    window.location.replace("/Project");
                 },
                 error: function (xhr, status, error) {
                     errorBlock.show();
@@ -75,7 +84,7 @@
                 url: "/project/edit/" + id,
                 data: formEdit.serialize(),
                 success: function (e) {
-                    window.location.replace("/project");
+                    window.location.replace("/Project");
                 },
                 error: function (xhr, status, error) {
                     errorBlock.show();
@@ -95,7 +104,7 @@
             type: "DELETE",
             url: "/project/delete/" + id,
             success: function (response) {
-                window.location.replace("/");
+                window.location.replace("/Project");
             },
             error: function (xhr, status, error) {
                 errorBlock.show();

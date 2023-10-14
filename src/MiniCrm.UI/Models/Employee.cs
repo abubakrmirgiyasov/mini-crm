@@ -27,4 +27,8 @@ public class Employee : Entity<Guid>
     public List<Manager> Managers { get; set; } = null!;
 
     public List<EmployeeProject> EmployeeProjects { get; set; } = null!;
+
+    public List<Task> Authors { get; set; } = null!;
+
+    public List<Task>? Executors { get; set; }
 }

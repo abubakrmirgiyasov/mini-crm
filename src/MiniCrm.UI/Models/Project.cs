@@ -31,4 +31,6 @@ public class Project : Entity<Guid>
     public Manager? Manager { get; set; } = null!;
 
     public List<EmployeeProject> EmployeeProjects { get; set; } = null!;
+
+    public List<Task> Tasks { get; set; } = null!;
 }

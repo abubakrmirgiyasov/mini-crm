@@ -3,6 +3,7 @@ using MiniCrm.UI.Models;
 using MiniCrm.UI.Repositories.Interfaces;
 using MiniCrm.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Task = System.Threading.Tasks.Task;
 
 namespace MiniCrm.UI.Repositories;
 
@@ -68,6 +69,19 @@ public class ProjectsRepository : IProjectRepository
         try
         {
             var project = ExtractingProjectDTO.ExtractingFromBindingModel(model);
+
+            if (model.Tasks is not null)
+            {
+                var tasks = _context.Tasks.ToList();
+
+                foreach (var task in model.Tasks)
+                {
+                    var currentTask = tasks.FirstOrDefault(x => x.Id == task);
+
+                    if (currentTask is not null)
+                        currentTask.ProjectId = project.Id;
+                }
+            }
 
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();

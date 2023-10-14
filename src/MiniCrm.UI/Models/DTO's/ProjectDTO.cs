@@ -17,6 +17,8 @@ public class ProjectBindingModel
     public Guid ManagerId { get; set; }
 
     public Guid[] Employees { get; set; } = null!;
+
+    public Guid[] Tasks { get; set; } = null!;
 }
 
 public record ProjectViewModel(
@@ -29,7 +31,8 @@ public record ProjectViewModel(
     int? Priority = null,
     Guid? ManagerId = null,
     ManagerViewModel? Manager = null,
-    List<EmployeeProjectsViewModel>? Employees = null);
+    List<EmployeeProjectsViewModel>? Employees = null,
+    Guid[]? Tasks = null);
 
 public class ExtractingProjectDTO
 {
@@ -81,6 +84,7 @@ public class ExtractingProjectDTO
             ExpirationDate = model.ExpirationDate,
             Priority = model.Priority,
             EmployeeProjects = new List<EmployeeProject>(),
+            Tasks = new List<Task>(),
             Manager = new Manager()
             {
                 Id = Guid.NewGuid(),

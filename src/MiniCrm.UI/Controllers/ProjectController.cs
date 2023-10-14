@@ -2,25 +2,20 @@
 using MiniCrm.UI.Models;
 using MiniCrm.UI.Models.DTO_s;
 using MiniCrm.UI.Repositories.Interfaces;
+
 namespace MiniCrm.UI.Controllers;
 
 public class ProjectController : Controller
 {
-    private readonly ILogger<ProjectController> _logger;
     private readonly IProjectRepository _project;
-    private readonly IEmployeeRepository _employee;
-    private readonly IManagerRepository _manager;
+    private readonly ILogger<ProjectController> _logger;
 
     public ProjectController(
-        IEmployeeRepository employee,
         IProjectRepository project,
-        IManagerRepository manager,
         ILogger<ProjectController> logger)
     {
-        _employee = employee;
         _project = project;
         _logger = logger;
-        _manager = manager;
     }
 
     public async Task<IActionResult> Index(string sortOrder)
@@ -132,27 +127,13 @@ public class ProjectController : Controller
             return BadRequest(ex.Message);
         }
     }
-
-    public async Task<ActionResult> GetEmployees()
+    
+    public async Task<IActionResult> GetSampleProjects()
     {
         try
         {
-            var employees = await _employee.GetSampleEmployeesAsync();
-            return Json(employees);
-        }
-        catch (Exception ex)
-        {
-            ViewData["Error"] = ex.Message;
-            return BadRequest(ex.Message);
-        }
-    }
-
-    public async Task<ActionResult> GetManagers()
-    {
-        try
-        {
-            var managers = await _manager.GetSampleManagersAsync();
-            return Json(managers);
+            var projects = await _project.GetSampleProjectsAsync();
+            return Json(projects);
         }
         catch (Exception ex)
         {

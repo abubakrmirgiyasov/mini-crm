@@ -11,7 +11,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/employee/getProjects",
+            url: "/project/getSampleProjects",
             dataType: "json",
             success: function (response) {
                 $.each(response, function (index, item) {
@@ -38,9 +38,6 @@
 
     formAdd.submit(function (e) {
         e.preventDefault();
-
-        const url = window.location.pathname;
-        const id = url.substring(url.lastIndexOf("/") + 1);
 
         if (formAdd.valid()) {
             $.ajax({
@@ -72,7 +69,7 @@
                 url: "/employee/edit/" + id,
                 data: formEdit.serialize(),
                 success: function (e) {
-                    window.location.replace("/employee");
+                    window.location.replace("/Employee");
                 },
                 error: function (xhr, status, error) {
                     errorBlock.show();
@@ -92,7 +89,7 @@
             type: "DELETE",
             url: "/employee/delete/" + id,
             success: function (response) {
-                window.location.replace("/employee");
+                window.location.replace("/Employee");
             },
             error: function (xhr, status, error) {
                 errorBlock.show();

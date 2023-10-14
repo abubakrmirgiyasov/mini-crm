@@ -4,6 +4,7 @@ using MiniCrm.UI.Models;
 using MiniCrm.UI.Repositories.Interfaces;
 using MiniCrm.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Task = System.Threading.Tasks.Task;
 
 namespace MiniCrm.UI.Repositories;
 

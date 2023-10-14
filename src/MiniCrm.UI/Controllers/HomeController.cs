@@ -5,6 +5,7 @@ using MiniCrm.UI.Repositories.Interfaces;
 using System.Diagnostics;
 
 namespace MiniCrm.UI.Controllers;
+
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
