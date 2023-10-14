@@ -1,0 +1,38 @@
+﻿@model EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Удаление сотрудника";
+}
+
+<h1>Удаление сотрудника</h1>
+
+<h3>Вы уверены, что хотите удалить?</h3>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+
+    <div class="d-flex justify-content-end align-content-center">
+        <button class="btn btn-danger" type="button" id="deleteEmployee">
+            Удалить
+        </button>
+    </div>
+</div>

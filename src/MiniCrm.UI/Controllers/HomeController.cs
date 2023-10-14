@@ -1,20 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using MiniCrm.UI.Models;
+using MiniCrm.UI.Repositories.Interfaces;
 using System.Diagnostics;
 
 namespace MiniCrm.UI.Controllers;
+
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IProjectRepository _project;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IProjectRepository project, ILogger<HomeController> logger)
     {
         _logger = logger;
+        _project = project;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index(string sortOrder)
     {
-        return View();
+        try
+        {
+            ViewBag.NameSortParam = !string.IsNullOrEmpty(sortOrder) ? "NameSortParam" : "";
+            ViewBag.NamePerformParam = !string.IsNullOrEmpty(sortOrder) ? "NamePerformParam" : "";
+
+            var projects = await _project.GetProjectsAsync();
+
+            projects = sortOrder switch
+            {
+                "NameSortParam" => projects.OrderByDescending(x => x.Name),
+                "NamePerformParam" => projects.OrderByDescending(x => x.PerformingCompany),
+                "StatusSort" => projects.OrderByDescending(x => x.Priority),
+                _ => projects.OrderBy(x => x.Priority),
+            };
+
+            _logger.LogInformation("Getting all projects, founded {Count}", projects.Count());
+
+            return View(projects);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogInformation("Getting all projects. Error {Message}", ex.Message);
+            return BadRequest(ex.Message);
+        }
     }
 
     public IActionResult Privacy()

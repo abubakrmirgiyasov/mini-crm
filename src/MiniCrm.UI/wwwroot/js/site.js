@@ -1,4 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
+    $("#statusSortSelect").on("change", function (e) {
+        window.location.replace("/Project/?sortOrder=" + this.value);
+    });
 
-// Write your JavaScript code.
+    $("#statusTaskSortSelect").on("change", function (e) {
+        window.location.replace("/Task/?sortOrder" + this.value);
+    });
+});

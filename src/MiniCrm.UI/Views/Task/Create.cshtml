@@ -1,0 +1,80 @@
+﻿@model TaskBindingModel
+
+@{
+    ViewData["Title"] = "Добавить задачу";
+}
+
+<h1>Добавить задачу</h1>
+
+<hr />
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="spinner-border text-primary" role="status" id="taskLoader" style="display: none;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div class="row" id="taskRow" style="display: none;">
+    <div class="col-md-12">
+        <form asp-action="Create" class="task-action">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="control-label">Название</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Priority" class="control-label">Приоритет</label>
+                <input asp-for="Priority" class="form-control" />
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Status" class="control-label">Статус</label>
+                <select asp-for="Status" class="form-select">
+                    <option disabled selected>Выберите статус</option>
+                    <option value="1">Todo</option>
+                    <option value="2">In Progress</option>
+                    <option value="3">Done</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="AuthorId" class="control-label">Автор</label>
+                <select asp-for="AuthorId" class="form-select" id="taskAuthors" asp-items="ViewBag.AuthorId">
+                    <option disabled selected>Выберите автора</option>
+                </select>
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ExecutorId" class="control-label">Исполнитель</label>
+                <select asp-for="ExecutorId" class="form-select" id="taskExecutors" asp-items="ViewBag.ExecutorId">
+                    <option disabled selected>Выберите исполнителя</option>
+                </select>
+                <span asp-validation-for="ExecutorId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProjectId" class="control-label">Проект</label>
+                <select asp-for="ProjectId" class="form-select" id="projectTasks" asp-items="ViewBag.ProjectId">
+                    <option disabled selected>Выберите проект</option>
+                </select>
+                <span asp-validation-for="ProjectId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="control-label">Описание</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-end align-items-center">
+                <button type="submit" class="btn btn-primary">
+                    Создать
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
