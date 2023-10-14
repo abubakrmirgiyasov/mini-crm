@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CD94551B-DDF8-44D4-95AE-38824C321596}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A193456B-717D-4BED-A80C-35B0B6ABB9E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniCrm.UI", "src\MiniCrm.UI\MiniCrm.UI.csproj", "{9628B732-9F9D-4C8E-91D2-FBCF9F797807}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "minicrm.reactts", "src\minicrm.reactts\minicrm.reactts.esproj", "{6F8F7CE1-2BA0-4A56-9EC0-E0779B07AE64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniCrm.RectTS.Test", "tests\MiniCrm.RectTS.Test\MiniCrm.RectTS.Test.csproj", "{A78AD03E-A603-4F71-858B-C6A5E50FFE44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniCrm.UI.Test", "tests\MiniCrm.UI.Test\MiniCrm.UI.Test.csproj", "{2B240173-0236-4CB2-BD5F-29D91297C347}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9628B732-9F9D-4C8E-91D2-FBCF9F797807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9628B732-9F9D-4C8E-91D2-FBCF9F797807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9628B732-9F9D-4C8E-91D2-FBCF9F797807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9628B732-9F9D-4C8E-91D2-FBCF9F797807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8F7CE1-2BA0-4A56-9EC0-E0779B07AE64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8F7CE1-2BA0-4A56-9EC0-E0779B07AE64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8F7CE1-2BA0-4A56-9EC0-E0779B07AE64}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6F8F7CE1-2BA0-4A56-9EC0-E0779B07AE64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8F7CE1-2BA0-4A56-9EC0-E0779B07AE64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8F7CE1-2BA0-4A56-9EC0-E0779B07AE64}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A78AD03E-A603-4F71-858B-C6A5E50FFE44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A78AD03E-A603-4F71-858B-C6A5E50FFE44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A78AD03E-A603-4F71-858B-C6A5E50FFE44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A78AD03E-A603-4F71-858B-C6A5E50FFE44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B240173-0236-4CB2-BD5F-29D91297C347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B240173-0236-4CB2-BD5F-29D91297C347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B240173-0236-4CB2-BD5F-29D91297C347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B240173-0236-4CB2-BD5F-29D91297C347}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9628B732-9F9D-4C8E-91D2-FBCF9F797807} = {CD94551B-DDF8-44D4-95AE-38824C321596}
+		{6F8F7CE1-2BA0-4A56-9EC0-E0779B07AE64} = {CD94551B-DDF8-44D4-95AE-38824C321596}
+		{A78AD03E-A603-4F71-858B-C6A5E50FFE44} = {A193456B-717D-4BED-A80C-35B0B6ABB9E0}
+		{2B240173-0236-4CB2-BD5F-29D91297C347} = {A193456B-717D-4BED-A80C-35B0B6ABB9E0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C36FF1AF-3FC8-428D-9803-F8FA03BF1038}
+	EndGlobalSection
+EndGlobal
