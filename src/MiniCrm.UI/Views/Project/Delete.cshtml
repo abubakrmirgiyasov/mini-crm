@@ -1,0 +1,56 @@
+﻿@model ProjectViewModel
+
+@{
+    ViewData["Title"] = "Удаление проекта";
+}
+
+<h1>Удаление проекта</h1>
+
+<h3>Вы уверены, что хотите удалить?</h3>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerCompany)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomerCompany)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PerformingCompany)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PerformingCompany)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExpirationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ExpirationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+        @* <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Manager.Label)
+        </dt>
+        <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Manager.Label)
+        </dd> *@
+    </dl>
+
+    <div class="d-flex justify-content-end align-content-center">
+        <button class="btn btn-danger" type="button" id="deleteProject">
+            Удалить
+        </button>
+    </div>
+</div>

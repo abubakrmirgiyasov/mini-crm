@@ -1,0 +1,67 @@
+﻿@model ProjectViewModel
+
+@{
+    ViewData["Title"] = "Изменение проекта";
+}
+
+<h1>Изменение проекта</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Index" class="project-edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="control-label">Название проекта</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CustomerCompany" class="control-label">Название компании-заказчика</label>
+                <input asp-for="CustomerCompany" class="form-control" />
+                <span asp-validation-for="CustomerCompany" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PerformingCompany" class="control-label">Название компании-исполнителя</label>
+                <input asp-for="PerformingCompany" class="form-control" />
+                <span asp-validation-for="PerformingCompany" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ExpirationDate" class="control-label">Дата окончания</label>
+                <input type="date" asp-for="ExpirationDate" class="form-control" />
+                <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Priority" class="control-label">Приоритет проекта</label>
+                <input asp-for="Priority" class="form-control" min="1" max="10000" />
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Employees" class="control-label">Выберите сотрудника</label>
+                <select asp-for="Employees" class="form-select" multiple id="projectEmployees">
+                    <option value="" disabled>Выберите несколько сотрудников</option>
+                </select>
+                <span asp-validation-for="Employees" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ManagerId" class="control-label">Выберите руководителя проекта</label>
+                <select asp-for="ManagerId" class="form-select" id="projectManagers">
+                    <option value="" disabled>Выберите руководителя проекта</option>
+                </select>
+                <span asp-validation-for="ManagerId" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                    Изменить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
