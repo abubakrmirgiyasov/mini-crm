@@ -100,6 +100,7 @@ public class ProjectsRepository : IProjectRepository
                 .Include(x => x.Manager)
                 .Include(x => x.EmployeeProjects)
                 .ThenInclude(x => x.Employee)
+                .Include(x => x.Tasks)
                 .FirstOrDefaultAsync(x => x.Id == model.Id)
                 ?? throw new Exception("Проект не найден");
 
@@ -110,6 +111,17 @@ public class ProjectsRepository : IProjectRepository
             project.Priority = model.Priority;
             project.UpdateDateTime = DateTime.Now;
             project.EmployeeProjects = new List<EmployeeProject>();
+
+            foreach (var task in project.Tasks)
+            {
+                foreach (var currentTask in model.Tasks)
+                {
+                    if (task.Id == currentTask)
+                    {
+                        task.ProjectId = project.Id;
+                    }
+                }
+            }
 
             if (project.Manager is not null)
                 project.Manager.EmployeeId = model.ManagerId;
