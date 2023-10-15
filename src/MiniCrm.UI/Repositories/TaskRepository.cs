@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MiniCrm.UI.Common;
 using MiniCrm.UI.Models.DTO_s;
 using MiniCrm.UI.Repositories.Interfaces;
 using MiniCrm.UI.Services;
@@ -110,6 +111,29 @@ public class TaskRepository : ITaskRepository
 
             _context.Tasks.Remove(task);
             await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
+    }
+
+    public async Task ChangeTaskStatusAsync(TaskStatusChangeBindingModel model)
+    {
+        try
+        {
+            var id = model.Status.Split("_");
+
+            if (Guid.TryParse(id.LastOrDefault(), out Guid taskId))
+            {
+                var task = await _context.Tasks
+                    .FirstOrDefaultAsync(x => x.Id == taskId)
+                    ?? throw new Exception("Произошла ошибка при изменении статуса");
+
+                task.Status = Enum.Parse<Status>(id.FirstOrDefault()!);
+         
+                await _context.SaveChangesAsync();
+            }
         }
         catch (Exception ex)
         {

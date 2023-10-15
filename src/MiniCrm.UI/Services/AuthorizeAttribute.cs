@@ -17,10 +17,7 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
         var role = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "role");
 
         if (role is null)
-            context.Result = new JsonResult(new { message = "Unauthorized" })
-            {
-                StatusCode = StatusCodes.Status401Unauthorized,
-            };
+            context.Result = new RedirectResult("/Login");
 
         if (!string.IsNullOrEmpty(Roles) && role is not null)
         {

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var user = User.Claims.FirstOrDefault(x => x.Type == "email")?.Value;
+}
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
@@ -33,9 +37,23 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <a asp-area="" asp-controller="Login" asp-action="Index">
-                        <i class="bi bi-box-arrow-in-right me-3"></i>Войти
-                    </a>
+                    @if (Context.IsAuthenticated())
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @user
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">Выйти</a></li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="btn btn-warning" asp-area="" asp-controller="Login" asp-action="Index">
+                            <i class="bi bi-box-arrow-in-right me-3"></i>Войти
+                        </a>
+                    }
                 </div>
             </div>
         </nav>

@@ -2,10 +2,12 @@
 using Microsoft.Data.SqlClient;
 using MiniCrm.UI.Models;
 using MiniCrm.UI.Repositories.Interfaces;
+using MiniCrm.UI.Services;
 using System.Diagnostics;
 
 namespace MiniCrm.UI.Controllers;
 
+[Authorize]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

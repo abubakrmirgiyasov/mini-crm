@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniCrm.UI.Models.DTO_s;
 using MiniCrm.UI.Repositories.Interfaces;
+using MiniCrm.UI.Services;
 
 namespace MiniCrm.UI.Controllers;
 
+[Authorize]
 public class TaskController : Controller
 {
     private readonly ITaskRepository _task;
@@ -44,12 +46,14 @@ public class TaskController : Controller
         }
     }
 
+    [Authorize(Roles = "project_manager,manager")]
     public ActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Create([FromForm] TaskBindingModel model)
     {
         try
@@ -64,6 +68,7 @@ public class TaskController : Controller
         }
     }
 
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Edit(Guid id)
     {
         try
@@ -79,6 +84,7 @@ public class TaskController : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Edit(Guid id, [FromForm] TaskBindingModel model)
     {
         try
@@ -94,6 +100,7 @@ public class TaskController : Controller
         }
     }
 
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Delete(Guid id)
     {
         try
@@ -109,12 +116,28 @@ public class TaskController : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Delete(Guid id, IFormCollection? collection)
     {
         try
         {
             await _task.DeleteTaskAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+        catch (Exception ex)
+        {
+            ViewData["Error"] = ex.Message;
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ChangeTaskStatus([FromForm] TaskStatusChangeBindingModel model)
+    {
+        try
+        {
+            await _task.ChangeTaskStatusAsync(model);
+            return View();
         }
         catch (Exception ex)
         {

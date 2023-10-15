@@ -2,9 +2,11 @@
 using MiniCrm.UI.Models.DTO_s;
 using MiniCrm.UI.Models;
 using MiniCrm.UI.Repositories.Interfaces;
+using MiniCrm.UI.Services;
 
 namespace MiniCrm.UI.Controllers;
 
+[Authorize(Roles = "manager")]
 public class EmployeeController : Controller
 {
     private readonly ILogger<EmployeeController> _logger;

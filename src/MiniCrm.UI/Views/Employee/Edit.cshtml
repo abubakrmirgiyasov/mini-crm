@@ -34,6 +34,16 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
+                <label asp-for="Role" class="control-label">Выберите роль</label>
+                <select asp-for="Role" class="form-select" id="employeeRoles">
+                    <option disabled selected>Выберите роль</option>
+                    <option value="manager">Руководитель</option>
+                    <option value="project_manager">Менеджер проекта</option>
+                    <option value="employee">Сотрудник</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
                 <label asp-for="Projects" class="control-label">Выберите проекта</label>
                 <select asp-for="Projects" class="form-select" multiple id="projectsSelect">
                     <option value="" disabled>Выберите несколько проектов</option>

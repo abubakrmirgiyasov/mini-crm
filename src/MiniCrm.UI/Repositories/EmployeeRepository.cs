@@ -5,6 +5,7 @@ using MiniCrm.UI.Repositories.Interfaces;
 using MiniCrm.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Task = System.Threading.Tasks.Task;
+using MiniCrm.UI.Common;
 
 namespace MiniCrm.UI.Repositories;
 
@@ -71,6 +72,17 @@ public class EmployeeRepository : IEmployeeRepository
         try
         {
             var employee = ExtractingEmployeeDTO.ExtractingFromBindingModel(model);
+
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(x => x.Name == model.Role)
+                ?? throw new Exception("При добавлении возникла ошибка");
+
+            employee.EmployeeRoles.Add(new EmployeeRole()
+            {
+                RoleId = role.Id,
+                EmployeeId = employee.Id,
+            });
+
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
         }
@@ -88,12 +100,13 @@ public class EmployeeRepository : IEmployeeRepository
                 .Include(x => x.EmployeeProjects)
                 .ThenInclude(x => x.Project)
                 .FirstOrDefaultAsync(x => x.Id == model.Id)
-                ?? throw new Exception("Проект не найден");
+                ?? throw new Exception("Сотрудник не найден");
 
             employee.FirstName = model.FirstName;
             employee.LastName = model.LastName;
             employee.UpdateDateTime = DateTime.Now;
             employee.Email = model.Email;
+            employee.Password = Hasher.GetHash(model.Password, employee.Salt);
             employee.EmployeeProjects = new List<EmployeeProject>();
 
             if (model.Projects is not null)

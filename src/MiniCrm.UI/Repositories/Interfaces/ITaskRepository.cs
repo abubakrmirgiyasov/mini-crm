@@ -15,4 +15,6 @@ public interface ITaskRepository
     Task EditTaskAsync(TaskBindingModel model);
 
     Task DeleteTaskAsync(Guid id);
+
+    Task ChangeTaskStatusAsync(TaskStatusChangeBindingModel model);
 }

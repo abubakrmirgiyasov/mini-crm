@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MiniCrm.UI.Common;
+using System.Collections.Generic;
 
 namespace MiniCrm.UI.Models.DTO_s;
 
@@ -14,6 +15,8 @@ public class EmployeeBindingModel
 
     public string Password { get; set; } = null!;
 
+    public string Role { get; set; } = null!;
+
     public Guid[]? Projects { get; set; }
 }
 
@@ -21,7 +24,8 @@ public record EmployeeViewModel(
     Guid? Id = null,
     string? FirstName = null,
     string? LastName = null,
-    string? Email = null,
+    string? Email = null, 
+    string? Role = null,
     List<EmployeeProjectsViewModel>? Projects = null);
 
 public class ExtractingEmployeeDTO
@@ -58,14 +62,18 @@ public class ExtractingEmployeeDTO
 
     public static Employee ExtractingFromBindingModel(EmployeeBindingModel model)
     {
+        var salt = Hasher.GetSalt();
+
         var employee = new Employee()
         {
             Id = Guid.NewGuid(),
             FirstName = model.FirstName,
             LastName = model.LastName,
             Email = model.Email.Trim(),
-            Password = model.Password,
+            Password = Hasher.GetHash(model.Password, salt),
+            Salt = salt,
             EmployeeProjects = new List<EmployeeProject>(),
+            EmployeeRoles = new List<EmployeeRole>(),
         };
 
         if (model.Projects is not null)

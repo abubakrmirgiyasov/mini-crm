@@ -115,4 +115,14 @@
             }
         });
     });
+
+    const taskStatusChange = $("#taskStatus");
+
+    taskStatusChange.on("change", function (e) {
+        $.ajax({
+            type: "POST",
+            url: "/task/changeTaskStatus",
+            data: { "status" : this.value },
+        });
+    });
 });

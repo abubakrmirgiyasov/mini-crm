@@ -36,6 +36,11 @@ public record TaskSampleViewModel(
     Guid? Value = null,
     string? Label = null);
 
+public class TaskStatusChangeBindingModel
+{
+    public string Status { get; set; } = null!;
+}
+
 public class ExtractingTaskDTO
 {
     public static Task ExtractingFromBindingModel(TaskBindingModel model)

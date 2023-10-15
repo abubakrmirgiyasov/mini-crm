@@ -17,6 +17,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Task> Tasks { get; set; }
 
+    public DbSet<Role> Roles { get; set; }
+
     public DbSet<EmployeeRole> EmployeeRoles { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

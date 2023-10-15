@@ -2,9 +2,11 @@
 using MiniCrm.UI.Models;
 using MiniCrm.UI.Models.DTO_s;
 using MiniCrm.UI.Repositories.Interfaces;
+using MiniCrm.UI.Services;
 
 namespace MiniCrm.UI.Controllers;
 
+[Authorize]
 public class ProjectController : Controller
 {
     private readonly IProjectRepository _project;
@@ -46,13 +48,14 @@ public class ProjectController : Controller
         }
     }
 
+    [Authorize(Roles = "project_manager,manager")]
     public ActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Create([FromForm] ProjectBindingModel model)
     {
         try
@@ -68,6 +71,7 @@ public class ProjectController : Controller
         }
     }
 
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Edit(Guid id)
     {
         try
@@ -83,7 +87,7 @@ public class ProjectController : Controller
     }
 
     [HttpPut]
-    [ValidateAntiForgeryToken]
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Edit(Guid id, [FromForm] ProjectBindingModel model)
     {
         try
@@ -99,6 +103,7 @@ public class ProjectController : Controller
         }
     }
 
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Delete(Guid id)
     {
         try
@@ -114,6 +119,7 @@ public class ProjectController : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "project_manager,manager")]
     public async Task<IActionResult> Delete(Guid id, IFormCollection? form)
     {
         try
