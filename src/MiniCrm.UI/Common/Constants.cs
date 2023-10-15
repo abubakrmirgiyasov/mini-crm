@@ -2,6 +2,7 @@
 
 public class Constants
 {
+    public static string[] ROLES = new string[] { "manager", "project_manager", "employee" };
 }
 
 public enum Status : int
