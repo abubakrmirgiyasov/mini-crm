@@ -10,12 +10,10 @@ namespace MiniCrm.UI.Controllers;
 [Authorize]
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
     private readonly IProjectRepository _project;
 
-    public HomeController(IProjectRepository project, ILogger<HomeController> logger)
+    public HomeController(IProjectRepository project)
     {
-        _logger = logger;
         _project = project;
     }
 
@@ -36,13 +34,10 @@ public class HomeController : Controller
                 _ => projects.OrderBy(x => x.Priority),
             };
 
-            _logger.LogInformation("Getting all projects, founded {Count}", projects.Count());
-
             return View(projects);
         }
         catch (Exception ex)
         {
-            _logger.LogInformation("Getting all projects. Error {Message}", ex.Message);
             return BadRequest(ex.Message);
         }
     }
